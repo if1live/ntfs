@@ -7,15 +7,8 @@ class TestSymbolicLink(TestDir):
         link = 'symboliclink'
         contents = 'bar'
         
-        try:
-            create(self.FOO, link)
-            assert os.path.islink(link) == True
-        except OSError as e:
-            if str(e) == 'symbolic link privilege not held':
-                print(e)
-                return
-            else:
-                raise e
+        create(self.FOO, link)
+        assert os.path.islink(link) == True
         
         with open(link, 'r') as fd:
             self.assertEqual(fd.read(), self.FOO_CONTENTS)
@@ -25,5 +18,3 @@ class TestSymbolicLink(TestDir):
 
         with open(link, 'r') as fd:
             self.assertEqual(fd.read(), contents)
-
-       
